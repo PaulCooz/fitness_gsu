@@ -7,7 +7,7 @@ namespace Models.LuaModule
 {
     public class LuaExpressionManager<T>
     {
-        private const string ResultKey = "expressionResult";
+        private const string RESULT_KEY = "expressionResult";
 
         private readonly Script _script;
 
@@ -24,8 +24,8 @@ namespace Models.LuaModule
         {
             try
             {
-                _script.DoString($"{ResultKey}={expression}");
-                result = _script.Globals.Get(ResultKey).Number;
+                _script.DoString($"{RESULT_KEY}={expression}");
+                result = _script.Globals.Get(RESULT_KEY).Number;
                 return true;
             }
             catch (Exception exception)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Models;
 using UnityEngine;
 
@@ -30,7 +29,7 @@ namespace Controllers
 
         private void Awake()
         {
-            Language = availableLanguages.First();
+            Language = availableLanguages.Front();
             _localizeManager = new LocalizeManager(translations.text);
         }
 
