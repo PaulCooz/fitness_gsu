@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Models.Keys;
-using Newtonsoft.Json;
-using UnityEngine;
+using Models.SaveManages;
 
 namespace Models
 {
@@ -13,7 +11,7 @@ namespace Models
 
         public ParametersManager()
         {
-            _parameters = GetAllData();
+            _parameters = SaveManager.Current.Get(SaveManager.DataArray, new List<Parameter>());
         }
 
         public void AddValue(string key, float value, DateTime dateTime, bool isProperty)
@@ -48,15 +46,7 @@ namespace Models
 
         public void SaveAllData()
         {
-            PlayerPrefs.SetString(PlayerPrefsKeys.DataArray, JsonConvert.SerializeObject(_parameters));
-        }
-
-        private List<Parameter> GetAllData()
-        {
-            return JsonConvert.DeserializeObject<List<Parameter>>
-            (
-                PlayerPrefs.GetString(PlayerPrefsKeys.DataArray, string.Empty)
-            ) ?? new List<Parameter>();
+            SaveManager.Current.Set(SaveManager.DataArray, _parameters);
         }
     }
 }
