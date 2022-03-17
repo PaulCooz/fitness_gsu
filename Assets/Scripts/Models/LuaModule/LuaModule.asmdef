@@ -1,0 +1,16 @@
+{
+    "name": "LuaModule",
+    "rootNamespace": "",
+    "references": [
+        "GUID:870406f1bc7456b4490e944ac26696ae"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

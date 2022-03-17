@@ -1,5 +1,4 @@
-﻿using Controllers;
-using Models;
+﻿using Models.Localizations;
 using TMPro;
 using UnityEngine;
 
@@ -11,22 +10,22 @@ namespace Views
         private TextMeshProUGUI textMesh;
 
         [SerializeField]
-        private LocalizeManager.LocalizeKey key;
+        private LocalizeKey key;
 
-        private void OnEnable()
+        private void Start()
         {
             SetText();
-            LocalizeController.OnLanguageChange += SetText;
-        }
-
-        private void OnDisable()
-        {
-            LocalizeController.OnLanguageChange -= SetText;
+            LocalizeManager.OnLanguageChange += SetText;
         }
 
         private void SetText()
         {
-            textMesh.text = LocalizeController.Get(key);
+            textMesh.text = LocalizeManager.Get(key);
+        }
+
+        private void OnDestroy()
+        {
+            LocalizeManager.OnLanguageChange -= SetText;
         }
     }
 }

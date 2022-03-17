@@ -23,7 +23,7 @@ namespace Models
 
         public Parameter(string key, float value, DateTime dateTime, bool isProperty)
         {
-            Values = new List<ValueAndDate> {new ValueAndDate(value, dateTime)};
+            Values = new List<ValueAndDate> {new(value, dateTime)};
             Key = key;
 
             IsProperty = isProperty;
@@ -36,7 +36,7 @@ namespace Models
 
         public ValueAndDate GetLast()
         {
-            return Values[Values.Count - 1];
+            return Values.Back();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
+using Models;
 using TMPro;
 using UnityEngine;
 
@@ -17,30 +19,29 @@ namespace Views
         [SerializeField]
         private TextMeshProUGUI textPrefab;
 
-        public IEnumerator Show(float[] leftValues, float[] bottomValues)
+        public IEnumerator Show(List<Parameter.ValueAndDate> values)
         {
-            var size = Math.Min(leftValues.Length, bottomValues.Length);
-            var leftTexts = new TextMeshProUGUI[size];
-            var bottomTexts = new TextMeshProUGUI[size];
-            var maxLeftValue = float.MinValue;
+            var valueTexts = new TextMeshProUGUI[values.Count];
+            var dateTexts = new TextMeshProUGUI[values.Count];
+            var maxValue = float.MinValue;
 
-            for (var i = 0; i < size; i++)
+            for (var i = 0; i < values.Count; i++)
             {
-                leftTexts[i] = Instantiate(textPrefab, leftAxis);
-                bottomTexts[i] = Instantiate(textPrefab, bottomAxis);
+                valueTexts[i] = Instantiate(textPrefab, leftAxis);
+                dateTexts[i] = Instantiate(textPrefab, bottomAxis);
 
-                leftTexts[i].text = leftValues[i].ToString(CultureInfo.CurrentCulture);
-                bottomTexts[i].text = bottomValues[i].ToString(CultureInfo.CurrentCulture);
+                valueTexts[i].text = values[i].Value.ToString(CultureInfo.CurrentCulture);
+                dateTexts[i].text = values[i].DateTime.ToString(CultureInfo.CurrentCulture);
 
-                maxLeftValue = Math.Max(maxLeftValue, leftValues[i]);
+                maxValue = Math.Max(maxValue, values[i].Value);
             }
 
             yield return new WaitForSeconds(0.5f);
 
-            var positions = new Vector3[size];
-            for (var i = 0; i < size; i++)
+            var positions = new Vector3[values.Count];
+            for (var i = 0; i < values.Count; i++)
             {
-                positions[i] = new Vector3(leftTexts[i].transform.position.y, leftValues[i] / maxLeftValue, 0);
+                positions[i] = new Vector3(valueTexts[i].transform.position.y, values[i].Value / maxValue, 0);
             }
 
             lineRenderer.positionCount = positions.Length;
